@@ -1,75 +1,100 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, ImageBackground, Text, TouchableOpacity } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { StatusBar } from "expo-status-bar";
+import {Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ImageBackground,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-
-function Login({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+export default function Login() {
+    const Navegation = useNavigation()
   return (
-    <ImageBackground source={require('../assets/img_fondo.jpeg')} style={styles.background}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../assets/img_fondo.jpg")}
+        style={styles.Background}
+      >
+        <View style={{backgroundColor:"rgba(0,0,0,0.75)"}}>
+        
+        <Image source={require("../assets/logo_fruit-sf.png")} style={{margin: 20}}/>
+
+        <TextInput style={styles.txtInput} placeholder="correo electronico" keyboardType="email-address" />
         <TextInput
-          style={styles.input}
-          placeholder="Correo electrónico"
-          value={email}
-          onChangeText={setEmail}
-          placeholderTextColor="#837B7B"
+          style={styles.txtInput}
+          placeholder="contraseña"
+          secureTextEntry={true}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          placeholderTextColor="#837B7B"
-        />
-        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Product")}>
-            <Text style={styles.buttonText}>Ingresar</Text>
+
+        <TouchableOpacity onPress={()=>{Navegation.navigate("home")}}>
+          <Text style={styles.btnLoginText}>Ingresar</Text>
         </TouchableOpacity>
-        <Text style={styles.link} onPress={() => navigation.navigate('Register')}>Crear cuenta nueva</Text>
-      </View>
-    </ImageBackground>
+
+        <TouchableOpacity onPress={()=>{Navegation.navigate("crear")}}>
+          <Text style={styles.txtCrearCuenta}>
+            Crear cuenta nueva.{" "}
+            <Text style={styles.txtRegistrarse}>Registrate</Text>
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.txtRegistrarse}>¿Has olvidado tu contraseña?</Text>
+        </View>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: wp('5%'),
-    backgroundColor: 'rgba(217, 217, 217, 0.8)',
-    margin: wp('5%'),
+  },
+  Background: {
+    flex: 1,
+    resizeMode: "cover",
+    color: "rgba(0,0,0,0.75)"
+  },
+  txtInput:{
+    backgroundColor: "#fff",
+    marginRight: "auto",
+    marginLeft: "auto",
+    width: "95%",
     borderRadius: 10,
+    paddingLeft: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 20,
+    marginBottom: 20,
   },
-  input: {
-    height: hp('6%'),
-    borderColor: '#837B7B',
-    borderWidth: 1,
-    marginBottom: hp('1.5%'),
-    paddingHorizontal: wp('3%'),
-    color: '#000',
-  },
-  button: {
-    backgroundColor: '#871F1F',
-    paddingVertical: hp('1.5%'),
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: hp('2%'),
-  },
-  link: {
-    color: '#871F1F',
-    marginTop: hp('1.5%'),
-    textAlign: 'center',
-  },
-});
+  txtCrearCuenta:{
+    color: "#fff",
+    fontWeight: "normal",
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 20,
 
-export default Login;
+  },
+  txtRegistrarse:{
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 18,
+    textDecorationLine: "underline",
+    textAlign: "center",
+  },
+  btnLoginText:{
+    backgroundColor: "#871F1F",
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+    width: 200,
+    height: 40,
+    borderRadius: 10,
+    marginRight: "auto",
+    marginLeft: "auto",
+    textAlign: "center",
+    paddingTop: 5,
+    paddingBottom: 5,
+  }
+});

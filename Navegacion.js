@@ -1,30 +1,33 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Login from './navegacion/Login';
-import Register from './navegacion/Register';
-import Product from './navegacion/Product';
+import Login from "./navegacion/Login";
+import Crear from "./navegacion/CrearCuenta";
+import Producto from "./navegacion/Producto";
+import Home from "./navegacion/home";
 
-const Stack = createStackNavigator();
+const StackNav = createStackNavigator();
 
-function Stacks() {
-    return (
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={Register} options={{ title: 'Registro' }} />
-        <Stack.Screen name="Product" component={Product} options={{ title: 'Registrar Producto' }} />
-      </Stack.Navigator>
-  );
+function Stacks(){
+    return(
+    <StackNav.Navigator initialRouteName="login">
+        <StackNav.Screen name="login" component={Login}/>
+        <StackNav.Screen name="crear" component={Crear}/>
+        <StackNav.Screen name="producto" component={Producto}/>
+        <StackNav.Screen name="home" component={Home}/>
+    </StackNav.Navigator>
+    )
 }
 
 
-export default function Navegacion() {
-    return (
-      // contenedor
-      <NavigationContainer>
-        <Stacks/>
-      </NavigationContainer>
+export default function Navegacion(){
+    return(
+        <NavigationContainer>
+            <Stacks/>
+        </NavigationContainer>
     );
-  }
+}
