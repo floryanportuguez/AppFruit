@@ -9,6 +9,10 @@ import Login from "./navegacion/Login";
 import Crear from "./navegacion/CrearCuenta";
 import Producto from "./navegacion/Producto";
 import Home from "./navegacion/home";
+import ListarProducto from "./navegacion/ListarProducto";
+import Aprender from "./navegacion/Aprender"; 
+import EditarProducto from "./navegacion/EditarProducto";
+import Favoritos from "./navegacion/Favoritos";
 
 const StackNav = createStackNavigator();
 
@@ -19,6 +23,11 @@ function Stacks(){
         <StackNav.Screen name="crear" component={Crear}/>
         <StackNav.Screen name="producto" component={Producto}/>
         <StackNav.Screen name="home" component={Home}/>
+        <StackNav.Screen name="ListarProducto" component={ListarProducto}/>
+        <StackNav.Screen name="Aprender" component={Aprender}/>
+        <StackNav.Screen name="EditarProducto" component={EditarProducto}/>
+        <StackNav.Screen name="Favoritos" component={Favoritos}/>
+     
     </StackNav.Navigator>
     )
 }

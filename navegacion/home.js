@@ -36,11 +36,14 @@ export default function Home() {
       <View style={styles.tarjeta}>
         <Text style={styles.titulo}>Inicio</Text>
         
-        <TouchableOpacity onPress={()=>{Navigation.navigate("crear")}}>
-          <Text style={styles.btnLoginText}>Crear Cuenta</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={()=>{Navigation.navigate("producto")}}>
           <Text style={styles.btnLoginText}>Ingresar Producto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{Navigation.navigate("ListarProducto")}}>
+          <Text style={styles.btnLoginText}>Listar Producto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{Navigation.navigate("Aprender")}}>
+          <Text style={styles.btnLoginText}>Aprender +</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{Navigation.navigate("login")}}>
           <Text style={styles.btnLoginText}>Cerrar Sesion</Text>

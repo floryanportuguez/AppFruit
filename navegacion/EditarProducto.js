@@ -1,34 +1,45 @@
-import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import app from "../AccesoFirebase";
+import React, { useState, useEffect } from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
+import { updateDoc, doc, getDoc } from 'firebase/firestore'; 
+import { db } from '../AccesoFirebase';
 
-const db = getFirestore(app);
+export default function EditarProducto({ route }) {
+    const { id } = route.params;
+    const Navigation = useNavigation(); 
 
-export default function Producto() {
-    const Navigation = useNavigation();
-
-    const inicioEstado = {
+    const [estado, setEstado] = useState({
         nombre: "",
         codigo: "",
         cantidad: "",
         fecha: "",
-    };
+    });
 
-    const [estado, setEstado] = useState(inicioEstado);
+    // Obtener los datos de la fruta seleccionada
+    useEffect(() => {
+        async function fetchProduct() {
+            const docRef = doc(db, "Product", id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                setEstado(docSnap.data());
+            }
+        }
+
+        fetchProduct();
+    }, [id]);
 
     const handleChangeText = (value, name) => {
         setEstado({ ...estado, [name]: value });
     };
 
-    const handleRegistrar = async () => {
+    const handleEditar = async () => {
         try {
-            await addDoc(collection(db, "Product"), { ...estado });
-            alert("Producto registrado con éxito");
-            setEstado(inicioEstado);
+            await updateDoc(doc(db, "Product", id), { ...estado });
+            alert("Producto actualizado con éxito");
+            Navigation.goBack();
         } catch (error) {
-            console.error(error);
+            console.error("Error updating document: ", error);
         }
     };
 
@@ -51,7 +62,7 @@ export default function Producto() {
             </ImageBackground>
 
             <View style={styles.tarjeta}>
-                <Text style={styles.titulo}>Productos</Text>
+                <Text style={styles.titulo}>Editar Producto</Text>
                 <TextInput
                     style={styles.txtInput}
                     placeholder="Nombre Producto"
@@ -88,7 +99,7 @@ export default function Producto() {
                     }}
                 />
 
-                <TouchableOpacity onPress={handleRegistrar}>
+                <TouchableOpacity onPress={handleEditar}>
                     <Text style={styles.btnLoginText}>Guardar</Text>
                 </TouchableOpacity>
             </View>
